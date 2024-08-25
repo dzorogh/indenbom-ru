@@ -1,6 +1,6 @@
 <?php
 
-namespace Dzorogh\Family\Rest;
+namespace App\Rest;
 
 use Lomkit\Rest\Http\Resource as RestResource;
 

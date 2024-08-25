@@ -101,9 +101,9 @@ class FamilyPersonResource extends Resource
                 Select::make('parent_couple_id')
                     ->relationship(
                         name: 'parentCouple',
-                        modifyQueryUsing: fn (Builder $query) => $query->with(['first_person', 'second_person']),
+                        modifyQueryUsing: fn (Builder $query) => $query->with(['firstPerson', 'secondPerson']),
                     )
-                    ->getOptionLabelFromRecordUsing(fn (FamilyCouple $record) => "{$record->first_person?->full_name} + {$record->second_person?->full_name}")
+                    ->getOptionLabelFromRecordUsing(fn (FamilyCouple $record) => "{$record->firstPerson?->full_name} + {$record->secondPerson?->full_name}")
                     ->native(false)
                     ->preload()
                 ,

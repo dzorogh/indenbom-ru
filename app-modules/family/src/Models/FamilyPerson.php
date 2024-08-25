@@ -17,10 +17,4 @@ class FamilyPerson extends Model
     {
         return $this->belongsTo(FamilyCouple::class);
     }
-
-    public function familyCouples(): HasMany
-    {
-        return $this->hasMany(FamilyCouple::class, 'first_person_id')
-            ->orWhere('second_person_id', $this->id);
-    }
 }

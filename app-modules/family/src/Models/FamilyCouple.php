@@ -18,12 +18,12 @@ class FamilyCouple extends Model
         return $this->hasMany(FamilyPerson::class, 'parent_couple_id');
     }
 
-    public function first_person(): BelongsTo
+    public function firstPerson(): BelongsTo
     {
         return $this->belongsTo(FamilyPerson::class, 'first_person_id');
     }
 
-    public function second_person(): BelongsTo
+    public function secondPerson(): BelongsTo
     {
         return $this->belongsTo(FamilyPerson::class, 'second_person_id');
     }
