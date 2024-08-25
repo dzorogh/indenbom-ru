@@ -31,14 +31,14 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverResources(in: app_path('Modules/Family/Filament/Resources'), for: 'App\\Modules\\Family\\Filament\\Resources')
+            ->discoverResources(in: base_path('app-modules/family/src/Filament/Resources'), for: 'Dzorogh\\Family\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->discoverPages(in: app_path('Modules/Family/Filament/Pages'), for: 'App\\Modules\\Family\\Filament\\Pages')
+            ->discoverPages(in: base_path('app-modules/family/src/Filament/Pages'), for: 'Dzorogh\\Family\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->discoverWidgets(in: app_path('Modules/Family/Filament/Widgets'), for: 'App\\Modules\\Family\\Filament\\Widgets')
+            ->discoverWidgets(in: base_path('app-modules/family/src/Filament/Widgets'), for: 'Dzorogh\\Family\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
