@@ -6,13 +6,11 @@ use Dzorogh\Family\Http\Resources\FamilyCoupleResource;
 use Dzorogh\Family\Models\FamilyCouple;
 use Illuminate\Http\Request;
 
-class FamilyTreeController
+class FamilyCoupleController
 {
-    public function tree()
+    public function index()
     {
-        $couples = FamilyCouple::query()
-            ->with(['firstPerson', 'secondPerson'])
-            ->get();
+        $couples = FamilyCouple::all();
 
         return FamilyCoupleResource::collection($couples);
     }
