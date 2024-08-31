@@ -3,6 +3,10 @@
 namespace Dzorogh\Family\Filament\Resources;
 
 use Carbon\Carbon;
+use Dzorogh\Family\Enums\DatePrecision;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Radio;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -47,55 +51,26 @@ class FamilyPersonResource extends Resource
                     ]),
 
                 Section::make('Birthdate')
-                    ->columns([
-                        'lg' => 4
-                    ])
+
                     ->schema([
-                        Forms\Components\TextInput::make('decade_of_birth')
-                            ->numeric()
-                            ->minValue(0)
-                            ->step(10),
+                        DatePicker::make('birth_date'),
 
-                        Forms\Components\TextInput::make('year_of_birth')
-                            ->numeric()
-                            ->minValue(0)
-                            ->maxValue(Carbon::now()->year),
-
-                        Forms\Components\TextInput::make('month_of_birth')
-                            ->numeric()
-                            ->minValue(1)
-                            ->maxValue(12),
-
-                        Forms\Components\TextInput::make('day_of_birth')
-                            ->numeric()
-                            ->minValue(1)
-                            ->maxValue(31),
+                        Radio::make('birth_date_precision')
+                            ->options(DatePrecision::class)
+                            ->inline()
+                            ->inlineLabel(false)
+                            ->default(DatePrecision::Exact)
                     ]),
 
                 Section::make('Deathdate')
-                    ->columns([
-                        'lg' => 4
-                    ])
                     ->schema([
-                        Forms\Components\TextInput::make('decade_of_death')
-                            ->numeric()
-                            ->minValue(0)
-                            ->step(10),
+                        DatePicker::make('death_date'),
 
-                        Forms\Components\TextInput::make('year_of_death')
-                            ->numeric()
-                            ->minValue(0)
-                            ->maxValue(Carbon::now()->year),
-
-                        Forms\Components\TextInput::make('month_of_death')
-                            ->numeric()
-                            ->minValue(1)
-                            ->maxValue(12),
-
-                        Forms\Components\TextInput::make('day_of_death')
-                            ->numeric()
-                            ->minValue(1)
-                            ->maxValue(31),
+                        Radio::make('death_date_precision')
+                            ->options(DatePrecision::class)
+                            ->inline()
+                            ->inlineLabel(false)
+                            ->default(DatePrecision::Exact)
                     ]),
 
                 Select::make('parent_couple_id')

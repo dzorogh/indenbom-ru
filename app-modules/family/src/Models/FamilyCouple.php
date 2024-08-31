@@ -13,6 +13,7 @@ class FamilyCouple extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
+
     public function children(): HasMany
     {
         return $this->hasMany(FamilyPerson::class, 'parent_couple_id');

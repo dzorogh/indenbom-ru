@@ -5,7 +5,7 @@ namespace Dzorogh\Family\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Dzorogh\Family\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Models\FamilyCouple>
  */
 class FamilyCoupleFactory extends Factory
 {

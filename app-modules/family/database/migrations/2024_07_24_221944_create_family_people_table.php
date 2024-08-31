@@ -16,8 +16,17 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
             $table->string('middle_name')->nullable();
+            $table->string('last_name')->nullable();
+
+            // Добавляем колонки для даты рождения и смерти
+            $table->date('birth_date')->nullable();
+            $table->date('death_date')->nullable();
+
+            // Добавляем колонки для определения точности дат
+            $table->enum('birth_date_precision', ['exact', 'year', 'decade', 'century', 'approximate'])->default('exact');
+            $table->enum('death_date_precision', ['exact', 'year', 'decade', 'century', 'approximate'])->default('exact');
+
 
             $table->integer('decade_of_birth')->nullable();
             $table->integer('year_of_birth')->nullable();
