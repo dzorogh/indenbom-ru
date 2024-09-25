@@ -18,6 +18,19 @@ class FamilyPersonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->resource->id,
+            'parent_couple_id' => $this->resource->parent_couple_id,
+            'full_name' => $this->resource->full_name,
+            'first_name' => $this->resource->first_name,
+            'last_name' => $this->resource->last_name,
+            'middle_name' => $this->resource->middle_name,
+            'place_of_birth' => $this->resource->place_of_birth,
+            'birth_date' => $this->resource->birth_date,
+            'birth_date_precision' => $this->resource->birth_date_precision,
+            'death_date' => $this->resource->death_date,
+            'death_date_precision' => $this->resource->death_date_precision,
+            'contacts' => FamilyPersonContactResource::collection($this->whenLoaded('contacts'))
+        ];
     }
 }

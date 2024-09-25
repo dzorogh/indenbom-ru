@@ -79,8 +79,12 @@ namespace Dzorogh\Family\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $first_name
- * @property string|null $last_name
  * @property string|null $middle_name
+ * @property string|null $last_name
+ * @property string|null $birth_date
+ * @property string|null $death_date
+ * @property \Dzorogh\Family\Enums\DatePrecision $birth_date_precision
+ * @property \Dzorogh\Family\Enums\DatePrecision $death_date_precision
  * @property int|null $decade_of_birth
  * @property int|null $year_of_birth
  * @property int|null $month_of_birth
@@ -90,14 +94,22 @@ namespace Dzorogh\Family\Models{
  * @property int|null $month_of_death
  * @property int|null $day_of_death
  * @property int|null $parent_couple_id
- * @property string|null $full_name
+ * @property string $full_name
+ * @property string|null $place_of_birth
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPersonContact> $contacts
+ * @property-read int|null $contacts_count
  * @property-read \Dzorogh\Family\Models\FamilyCouple|null $parentCouple
+ * @method static \Dzorogh\Family\Database\Factories\FamilyPersonFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereBirthDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereBirthDatePrecision($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereDayOfBirth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereDayOfDeath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereDeathDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereDeathDatePrecision($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereDecadeOfBirth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereDecadeOfDeath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereFirstName($value)
@@ -108,10 +120,35 @@ namespace Dzorogh\Family\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereMonthOfBirth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereMonthOfDeath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereParentCoupleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson wherePlaceOfBirth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereYearOfBirth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereYearOfDeath($value)
  */
 	class FamilyPerson extends \Eloquent {}
+}
+
+namespace Dzorogh\Family\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $family_person_id
+ * @property string $type
+ * @property string $value
+ * @property-read \Dzorogh\Family\Models\FamilyPerson|null $person
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereFamilyPersonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereValue($value)
+ */
+	class FamilyPersonContact extends \Eloquent {}
 }
 

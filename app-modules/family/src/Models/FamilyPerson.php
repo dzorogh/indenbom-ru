@@ -23,4 +23,9 @@ class FamilyPerson extends Model
     {
         return $this->belongsTo(FamilyCouple::class);
     }
+
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(FamilyPersonContact::class, 'family_person_id');
+    }
 }

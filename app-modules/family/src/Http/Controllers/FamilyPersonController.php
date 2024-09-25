@@ -12,7 +12,9 @@ class FamilyPersonController
 {
     public function index()
     {
-        $couples = FamilyPerson::all();
+        $couples = FamilyPerson::with(['contacts'])
+            ->orderBy('birth_date', 'desc')
+            ->get();
 
         return FamilyPersonResource::collection($couples);
     }

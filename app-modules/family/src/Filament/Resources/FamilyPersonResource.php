@@ -2,11 +2,10 @@
 
 namespace Dzorogh\Family\Filament\Resources;
 
-use Carbon\Carbon;
 use Dzorogh\Family\Enums\DatePrecision;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\ContactsRelationManager;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Radio;
-use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -50,10 +49,14 @@ class FamilyPersonResource extends Resource
                             ->columns(1),
                     ]),
 
-                Section::make('Birthdate')
+                Section::make('Birth')
 
                     ->schema([
+
+                        Forms\Components\TextInput::make('place_of_birth'),
+
                         DatePicker::make('birth_date'),
+
 
                         Radio::make('birth_date_precision')
                             ->options(DatePrecision::class)
@@ -62,7 +65,7 @@ class FamilyPersonResource extends Resource
                             ->default(DatePrecision::Exact)
                     ]),
 
-                Section::make('Deathdate')
+                Section::make('Death')
                     ->schema([
                         DatePicker::make('death_date'),
 
@@ -93,6 +96,11 @@ class FamilyPersonResource extends Resource
                 Tables\Columns\TextColumn::make('full_name')
                     ->searchable()
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('birth_date')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('death_date')
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -110,7 +118,7 @@ class FamilyPersonResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ContactsRelationManager::class
         ];
     }
 
