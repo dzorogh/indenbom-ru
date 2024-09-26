@@ -18,4 +18,13 @@ class FamilyPersonController
 
         return FamilyPersonResource::collection($couples);
     }
+
+    public function show(string $personId)
+    {
+        $person = FamilyPerson::find($personId)
+            ->load(['photos' => function ($q) {
+                $q->orderByPivot('order');
+            }, 'photos.media', 'contacts', 'parentCouple.children']);
+        return FamilyPersonResource::make($person);
+    }
 }

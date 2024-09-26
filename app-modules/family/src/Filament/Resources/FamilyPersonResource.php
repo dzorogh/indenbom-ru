@@ -3,22 +3,24 @@
 namespace Dzorogh\Family\Filament\Resources;
 
 use Dzorogh\Family\Enums\DatePrecision;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\CreateFamilyPerson;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\EditFamilyPerson;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\ListFamilyPeople;
 use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\ContactsRelationManager;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\PhotosRelationManager;
+use Dzorogh\Family\Models\FamilyCouple;
+use Dzorogh\Family\Models\FamilyPerson;
+use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Radio;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\CreateFamilyPerson;
-use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\EditFamilyPerson;
-use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\ListFamilyPeople;
-use Dzorogh\Family\Models\FamilyCouple;
-use Dzorogh\Family\Models\FamilyPerson;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class FamilyPersonResource extends Resource
@@ -33,6 +35,23 @@ class FamilyPersonResource extends Resource
     {
         return $form
             ->schema([
+                SpatieMediaLibraryFileUpload::make('avatar')
+                    ->collection('avatar')
+                    ->avatar()
+                    ->imageEditor(),
+
+                Section::make('Name')
+                    ->schema([
+                        Select::make('parent_couple_id')
+                            ->columns(3)
+                            ->relationship(
+                                name: 'parentCouple',
+                                modifyQueryUsing: fn(Builder $query) => $query->with(['firstPerson', 'secondPerson']),
+                            )
+                            ->getOptionLabelFromRecordUsing(fn(FamilyCouple $record) => "{$record->firstPerson?->full_name} + {$record->secondPerson?->full_name}")
+                            ->native(false)
+                            ->preload(),
+                    ]),
 
                 Section::make('Name')
                     ->columns([
@@ -50,7 +69,6 @@ class FamilyPersonResource extends Resource
                     ]),
 
                 Section::make('Birth')
-
                     ->schema([
 
                         Forms\Components\TextInput::make('place_of_birth'),
@@ -75,17 +93,6 @@ class FamilyPersonResource extends Resource
                             ->inlineLabel(false)
                             ->default(DatePrecision::Exact)
                     ]),
-
-                Select::make('parent_couple_id')
-                    ->relationship(
-                        name: 'parentCouple',
-                        modifyQueryUsing: fn (Builder $query) => $query->with(['firstPerson', 'secondPerson']),
-                    )
-                    ->getOptionLabelFromRecordUsing(fn (FamilyCouple $record) => "{$record->firstPerson?->full_name} + {$record->secondPerson?->full_name}")
-                    ->native(false)
-                    ->preload()
-                ,
-
             ]);
     }
 
@@ -99,6 +106,7 @@ class FamilyPersonResource extends Resource
 
                 Tables\Columns\TextColumn::make('birth_date')
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('death_date')
                     ->sortable(),
             ])
@@ -118,7 +126,8 @@ class FamilyPersonResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ContactsRelationManager::class
+            ContactsRelationManager::class,
+            PhotosRelationManager::class,
         ];
     }
 

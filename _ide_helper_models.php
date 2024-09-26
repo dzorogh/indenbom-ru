@@ -38,7 +38,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent {}
+	class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser {}
 }
 
 namespace Dzorogh\Family\Models{
@@ -96,13 +96,19 @@ namespace Dzorogh\Family\Models{
  * @property int|null $parent_couple_id
  * @property string $full_name
  * @property string|null $place_of_birth
+ * @property string|null $article
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPersonContact> $contacts
  * @property-read int|null $contacts_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
  * @property-read \Dzorogh\Family\Models\FamilyCouple|null $parentCouple
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPhoto> $photos
+ * @property-read int|null $photos_count
  * @method static \Dzorogh\Family\Database\Factories\FamilyPersonFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereArticle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereBirthDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereBirthDatePrecision($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereCreatedAt($value)
@@ -125,7 +131,7 @@ namespace Dzorogh\Family\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereYearOfBirth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPerson whereYearOfDeath($value)
  */
-	class FamilyPerson extends \Eloquent {}
+	class FamilyPerson extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }
 
 namespace Dzorogh\Family\Models{
@@ -150,5 +156,39 @@ namespace Dzorogh\Family\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonContact whereValue($value)
  */
 	class FamilyPersonContact extends \Eloquent {}
+}
+
+namespace Dzorogh\Family\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto query()
+ */
+	class FamilyPersonPhoto extends \Eloquent {}
+}
+
+namespace Dzorogh\Family\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $description
+ * @property string|null $approximate_date
+ * @property string|null $place
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto whereApproximateDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto wherePlace($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto whereUpdatedAt($value)
+ */
+	class FamilyPhoto extends \Eloquent {}
 }
 

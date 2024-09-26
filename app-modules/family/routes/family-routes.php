@@ -17,6 +17,7 @@ Route::prefix('api')->group(function () {
                 ->controller(FamilyPersonController::class)
                 ->group(function () {
                     Route::get('/', 'index');
+                    Route::get('{person}', 'show');
                 });
         });
     });

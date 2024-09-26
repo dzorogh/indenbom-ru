@@ -11,6 +11,7 @@
         "php": "^8.2",
         "dzorogh/family": "*",
         "filament/filament": "^3.2",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/telescope": "^5.2",

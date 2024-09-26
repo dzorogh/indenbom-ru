@@ -6,11 +6,14 @@ use Dzorogh\Family\Enums\DatePrecision;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class FamilyPerson extends Model
+class FamilyPerson extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
@@ -27,5 +30,11 @@ class FamilyPerson extends Model
     public function contacts(): HasMany
     {
         return $this->hasMany(FamilyPersonContact::class, 'family_person_id');
+    }
+
+    public function photos(): BelongsToMany
+    {
+        return $this->belongsToMany(FamilyPhoto::class, 'family_person_photo')
+            ->withPivot(['order', 'position_on_photo']);
     }
 }

@@ -21,6 +21,7 @@ class FamilyPersonResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'parent_couple_id' => $this->resource->parent_couple_id,
+            'parent_couple' => FamilyCoupleResource::make($this->whenLoaded('parentCouple')),
             'full_name' => $this->resource->full_name,
             'first_name' => $this->resource->first_name,
             'last_name' => $this->resource->last_name,
@@ -30,7 +31,9 @@ class FamilyPersonResource extends JsonResource
             'birth_date_precision' => $this->resource->birth_date_precision,
             'death_date' => $this->resource->death_date,
             'death_date_precision' => $this->resource->death_date_precision,
-            'contacts' => FamilyPersonContactResource::collection($this->whenLoaded('contacts'))
+            'contacts' => FamilyPersonContactResource::collection($this->whenLoaded('contacts')),
+            'avatar_url' => $this->resource->getMedia('avatar')->first()?->original_url,
+            'photos' => FamilyPhotoResource::collection($this->whenLoaded('photos')),
         ];
     }
 }
