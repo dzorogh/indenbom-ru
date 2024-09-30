@@ -4,7 +4,10 @@ namespace Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManager
 
 use Dzorogh\Family\Enums\ContactType;
 use Dzorogh\Family\Enums\DatePrecision;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource;
+use Dzorogh\Family\Filament\Resources\FamilyPhotoResource;
 use Filament\Forms;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,49 +23,11 @@ class PhotosRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                SpatieMediaLibraryFileUpload::make('media'),
-
-                Forms\Components\Textarea::make('description')->autosize(),
-
-                Forms\Components\TextInput::make('approximate_date')
-                    ->maxLength(255),
-
-                Forms\Components\TextInput::make('place')
-                    ->maxLength(255),
-            ]);
+        return FamilyPhotoResource::form($form);
     }
 
     public function table(Table $table): Table
     {
-        return $table
-            ->reorderable('order')
-            ->recordTitleAttribute('value')
-            ->columns([
-                SpatieMediaLibraryImageColumn::make('media')->height(100),
-
-                Tables\Columns\TextColumn::make('description')
-                    ->width(400)
-                    ->wrap()
-                    ->lineClamp(2),
-                Tables\Columns\TextColumn::make('place'),
-                Tables\Columns\TextColumn::make('approximate_date'),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return FamilyPhotoResource::table($table);
     }
 }

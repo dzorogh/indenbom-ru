@@ -1,8 +1,7 @@
 <?php
 
-namespace Dzorogh\Family\Http\Resources;
+namespace Dzorogh\Family\Http\Http\Resources;
 
-use Dzorogh\Family\Models\FamilyPerson;
 use Dzorogh\Family\Models\FamilyPersonContact;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

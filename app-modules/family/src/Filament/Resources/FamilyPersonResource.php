@@ -12,6 +12,7 @@ use Dzorogh\Family\Models\FamilyCouple;
 use Dzorogh\Family\Models\FamilyPerson;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -31,7 +32,7 @@ class FamilyPersonResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'full_name';
 
-    public static function form(Form $form): Form
+    public static function form(Form $form ): Form
     {
         return $form
             ->schema([
@@ -93,6 +94,8 @@ class FamilyPersonResource extends Resource
                             ->inlineLabel(false)
                             ->default(DatePrecision::Exact)
                     ]),
+
+                MarkdownEditor::make('article'),
             ]);
     }
 

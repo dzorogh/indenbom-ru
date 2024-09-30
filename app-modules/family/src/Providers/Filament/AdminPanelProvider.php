@@ -64,6 +64,9 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->emailVerification()
             ->profile()
-            ;
+
+            ->brandLogo(fn () => view('family::brand'))
+            ->favicon(asset('images/icon.svg'))
+            ->brandLogoHeight('2rem');
     }
 }

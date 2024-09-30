@@ -1,6 +1,6 @@
 <?php
 
-namespace Dzorogh\Family\Http\Resources;
+namespace Dzorogh\Family\Http\Http\Resources;
 
 use Dzorogh\Family\Models\FamilyCouple;
 use Illuminate\Http\Request;
@@ -24,6 +24,7 @@ class FamilyCoupleResource extends JsonResource
             'second_person_id' => $this->resource->second_person_id,
             'first_person' => FamilyPersonResource::make($this->whenLoaded('firstPerson')),
             'second_person' => FamilyPersonResource::make($this->whenLoaded('secondPerson')),
+            'children' => FamilyPersonResource::collection($this->whenLoaded('children')),
         ];
     }
 }

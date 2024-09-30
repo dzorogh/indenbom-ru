@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -27,6 +28,22 @@ class FamilyPerson extends Model implements HasMedia
         return $this->belongsTo(FamilyCouple::class);
     }
 
+    public function couplesFirst(): HasMany
+    {
+        return $this->hasMany(
+            FamilyCouple::class,
+            'first_person_id',
+        );
+    }
+
+    public function couplesSecond(): HasMany
+    {
+        return $this->hasMany(
+            FamilyCouple::class,
+            'second_person_id',
+        );
+    }
+
     public function contacts(): HasMany
     {
         return $this->hasMany(FamilyPersonContact::class, 'family_person_id');
@@ -35,6 +52,6 @@ class FamilyPerson extends Model implements HasMedia
     public function photos(): BelongsToMany
     {
         return $this->belongsToMany(FamilyPhoto::class, 'family_person_photo')
-            ->withPivot(['order', 'position_on_photo']);
+            ->withPivot(['order']);
     }
 }

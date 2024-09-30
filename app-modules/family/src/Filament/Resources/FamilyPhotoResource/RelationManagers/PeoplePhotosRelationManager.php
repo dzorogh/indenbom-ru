@@ -1,28 +1,29 @@
 <?php
 
-namespace Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers;
+namespace Dzorogh\Family\Filament\Resources\FamilyPhotoResource\RelationManagers;
 
-use Dzorogh\Family\Enums\ContactType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class ContactsRelationManager extends RelationManager
+class PeoplePhotosRelationManager extends RelationManager
 {
-    protected static string $relationship = 'contacts';
+    protected static string $relationship = 'peoplePhotos';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('type')
-                    ->options(ContactType::class),
 
-                Forms\Components\TextInput::make('value')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('family_person_id')
+                    ->relationship(name: 'person', titleAttribute: 'full_name')
+                    ->searchable(['full_name'])
+                    ->preload(),
+
+                Forms\Components\TextInput::make('position_on_photo'),
+
             ]);
     }
 
@@ -31,8 +32,7 @@ class ContactsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('value')
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('value'),
+                Tables\Columns\TextColumn::make('person.full_name')
             ])
             ->filters([
                 //
