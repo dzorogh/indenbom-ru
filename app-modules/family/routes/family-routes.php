@@ -10,7 +10,7 @@ Route::prefix('api')->group(function () {
 
 
         Route::prefix('family')->group(function () {
-            Route::prefix('')
+            Route::prefix('families')
                 ->controller(FamilyController::class)
                 ->group(function () {
                     Route::get('/', 'index');

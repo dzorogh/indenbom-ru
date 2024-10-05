@@ -16,7 +16,7 @@ class FamilyController
 
     public function show(string $slug)
     {
-        $family = Family::find($slug);
+        $family = Family::whereSlug($slug)->firstOrFail();
 
         return FamilyResource::make($family);
     }
