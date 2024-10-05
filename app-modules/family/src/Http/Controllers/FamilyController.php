@@ -13,4 +13,11 @@ class FamilyController
 
         return FamilyResource::collection($families);
     }
+
+    public function show(string $slug)
+    {
+        $family = Family::find($slug);
+
+        return FamilyResource::make($family);
+    }
 }
