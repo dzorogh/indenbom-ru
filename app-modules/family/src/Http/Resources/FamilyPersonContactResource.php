@@ -1,6 +1,6 @@
 <?php
 
-namespace Dzorogh\Family\Http\Http\Resources;
+namespace Dzorogh\Family\Http\Resources;
 
 use Dzorogh\Family\Models\FamilyPersonContact;
 use Illuminate\Http\Request;

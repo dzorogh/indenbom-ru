@@ -1,8 +1,8 @@
 <?php
 
-namespace Dzorogh\Family\Http\Http\Controllers;
+namespace Dzorogh\Family\Http\Controllers;
 
-use Dzorogh\Family\Http\Http\Resources\FamilyPersonResource;
+use Dzorogh\Family\Http\Resources\FamilyPersonResource;
 use Dzorogh\Family\Models\FamilyPerson;
 
 class FamilyPersonController

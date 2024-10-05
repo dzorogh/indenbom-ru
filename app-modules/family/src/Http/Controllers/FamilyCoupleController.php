@@ -1,8 +1,8 @@
 <?php
 
-namespace Dzorogh\Family\Http\Http\Controllers;
+namespace Dzorogh\Family\Http\Controllers;
 
-use Dzorogh\Family\Http\Http\Resources\FamilyCoupleResource;
+use Dzorogh\Family\Http\Resources\FamilyCoupleResource;
 use Dzorogh\Family\Models\FamilyCouple;
 
 class FamilyCoupleController

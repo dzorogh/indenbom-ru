@@ -48,6 +48,27 @@ namespace Dzorogh\Family\Models{
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $title
+ * @property string|null $description
+ * @method static \Illuminate\Database\Eloquent\Builder|Family newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Family newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Family query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Family whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Family whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Family whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Family whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Family whereUpdatedAt($value)
+ */
+	class Family extends \Eloquent {}
+}
+
+namespace Dzorogh\Family\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $first_person_id
  * @property int|null $second_person_id
  * @property int|null $order
@@ -99,6 +120,10 @@ namespace Dzorogh\Family\Models{
  * @property string|null $article
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPersonContact> $contacts
  * @property-read int|null $contacts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyCouple> $couplesFirst
+ * @property-read int|null $couples_first_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyCouple> $couplesSecond
+ * @property-read int|null $couples_second_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Dzorogh\Family\Models\FamilyCouple|null $parentCouple
@@ -162,9 +187,24 @@ namespace Dzorogh\Family\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $family_person_id
+ * @property int $family_photo_id
+ * @property int|null $order
+ * @property string|null $position_on_photo
+ * @property-read \Dzorogh\Family\Models\FamilyPerson|null $person
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto whereFamilyPersonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto whereFamilyPhotoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto wherePositionOnPhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPersonPhoto whereUpdatedAt($value)
  */
 	class FamilyPersonPhoto extends \Eloquent {}
 }
@@ -179,6 +219,12 @@ namespace Dzorogh\Family\Models{
  * @property string|null $description
  * @property string|null $approximate_date
  * @property string|null $place
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPerson> $people
+ * @property-read int|null $people_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPersonPhoto> $peoplePhotos
+ * @property-read int|null $people_photos_count
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto query()
@@ -189,6 +235,6 @@ namespace Dzorogh\Family\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto wherePlace($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyPhoto whereUpdatedAt($value)
  */
-	class FamilyPhoto extends \Eloquent {}
+	class FamilyPhoto extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }
 

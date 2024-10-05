@@ -1,8 +1,8 @@
 <?php
 
 
-use Dzorogh\Family\Http\Http\Controllers\FamilyCoupleController;
-use Dzorogh\Family\Http\Http\Controllers\FamilyPersonController;
+use Dzorogh\Family\Http\Controllers\FamilyCoupleController;
+use Dzorogh\Family\Http\Controllers\FamilyPersonController;
 
 Route::prefix('api')->group(function () {
     Route::prefix('v1')->group(function () {
