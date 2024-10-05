@@ -28,6 +28,7 @@ class FamilyPersonController
                 'contacts',
                 'parentCouple.firstPerson',
                 'parentCouple.secondPerson',
+                'parentCouple.children',
                 'couplesFirst.firstPerson',
                 'couplesFirst.secondPerson',
                 'couplesFirst.children',
