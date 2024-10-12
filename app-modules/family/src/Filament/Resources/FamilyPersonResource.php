@@ -47,9 +47,9 @@ class FamilyPersonResource extends Resource
                             ->columns(3)
                             ->relationship(
                                 name: 'parentCouple',
-                                modifyQueryUsing: fn(Builder $query) => $query->with(['firstPerson', 'secondPerson']),
+                                modifyQueryUsing: fn(Builder $query) => $query->with(['husband', 'wife']),
                             )
-                            ->getOptionLabelFromRecordUsing(fn(FamilyCouple $record) => "{$record->firstPerson?->full_name} + {$record->secondPerson?->full_name}")
+                            ->getOptionLabelFromRecordUsing(fn(FamilyCouple $record) => "{$record->husband?->full_name} + {$record->wife?->full_name}")
                             ->native(false)
                             ->preload(),
                     ]),

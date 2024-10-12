@@ -36,11 +36,14 @@ class FamilyPersonResource extends JsonResource
 
             'parent_couple' => FamilyCoupleResource::make($this->whenLoaded('parentCouple')),
             'couples' => FamilyCoupleResource::collection(
-                $this->whenLoaded('couplesFirst', null, new Collection())
-                    ->merge($this->whenLoaded('couplesSecond', null, new Collection()))
+                $this->whenLoaded('couplesHusband', null, new Collection())
+                    ->merge($this->whenLoaded('couplesWife', null, new Collection()))
             ),
+
             'contacts' => FamilyPersonContactResource::collection($this->whenLoaded('contacts')),
+            'contacts_count' => $this->whenCounted('contacts'),
             'photos' => FamilyPhotoResource::collection($this->whenLoaded('photos')),
+            'photos_count' => $this->whenCounted('photos'),
 
 
             'position_on_photo' => $this->whenPivotLoaded('family_person_photo', function () {

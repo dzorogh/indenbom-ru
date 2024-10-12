@@ -20,10 +20,10 @@ class FamilyCoupleResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'first_person_id' => $this->resource->first_person_id,
-            'second_person_id' => $this->resource->second_person_id,
-            'first_person' => FamilyPersonResource::make($this->whenLoaded('firstPerson')),
-            'second_person' => FamilyPersonResource::make($this->whenLoaded('secondPerson')),
+            'husband_id' => $this->resource->husband_id,
+            'wife_id' => $this->resource->wife_id,
+            'husband' => FamilyPersonResource::make($this->whenLoaded('husband')),
+            'wife' => FamilyPersonResource::make($this->whenLoaded('wife')),
             'children' => FamilyPersonResource::collection($this->whenLoaded('children')),
         ];
     }

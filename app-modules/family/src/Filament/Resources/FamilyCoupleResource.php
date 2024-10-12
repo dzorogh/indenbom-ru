@@ -26,8 +26,8 @@ class FamilyCoupleResource extends Resource
         return $form
             ->schema([
                 // Select First Person
-                Forms\Components\Select::make('first_person_id')
-                    ->relationship(name: 'firstPerson', titleAttribute: 'full_name')
+                Forms\Components\Select::make('husband_id')
+                    ->relationship(name: 'husband', titleAttribute: 'full_name')
                     ->searchable()
                     ->preload()
                     ->createOptionForm(function ($form) {
@@ -35,8 +35,8 @@ class FamilyCoupleResource extends Resource
                     }),
 
                 // Select Second Person
-                Forms\Components\Select::make('second_person_id')
-                    ->relationship(name: 'secondPerson', titleAttribute: 'full_name')
+                Forms\Components\Select::make('wife_id')
+                    ->relationship(name: 'wife', titleAttribute: 'full_name')
                     ->searchable()
                     ->preload()
                     ->createOptionForm(function ($form) {
@@ -50,10 +50,10 @@ class FamilyCoupleResource extends Resource
         return $table
             ->columns([
                 // First person
-                Tables\Columns\TextColumn::make('firstPerson.full_name'),
+                Tables\Columns\TextColumn::make('husband.full_name'),
 
                 // Second person
-                Tables\Columns\TextColumn::make('secondPerson.full_name')
+                Tables\Columns\TextColumn::make('wife.full_name')
             ])
             ->filters([
                 //

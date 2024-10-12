@@ -19,13 +19,13 @@ class FamilyCouple extends Model
         return $this->hasMany(FamilyPerson::class, 'parent_couple_id');
     }
 
-    public function firstPerson(): BelongsTo
+    public function husband(): BelongsTo
     {
-        return $this->belongsTo(FamilyPerson::class, 'first_person_id');
+        return $this->belongsTo(FamilyPerson::class, 'husband_id');
     }
 
-    public function secondPerson(): BelongsTo
+    public function wife(): BelongsTo
     {
-        return $this->belongsTo(FamilyPerson::class, 'second_person_id');
+        return $this->belongsTo(FamilyPerson::class, 'wife_id');
     }
 }

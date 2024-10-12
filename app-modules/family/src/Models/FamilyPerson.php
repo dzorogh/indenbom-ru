@@ -28,19 +28,19 @@ class FamilyPerson extends Model implements HasMedia
         return $this->belongsTo(FamilyCouple::class);
     }
 
-    public function couplesFirst(): HasMany
+    public function couplesHusband(): HasMany
     {
         return $this->hasMany(
             FamilyCouple::class,
-            'first_person_id',
+            'husband_id',
         );
     }
 
-    public function couplesSecond(): HasMany
+    public function couplesWife(): HasMany
     {
         return $this->hasMany(
             FamilyCouple::class,
-            'second_person_id',
+            'wife_id',
         );
     }
 
