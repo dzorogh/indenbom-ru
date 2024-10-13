@@ -7,6 +7,8 @@ use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\CreateFamilyPer
 use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\EditFamilyPerson;
 use Dzorogh\Family\Filament\Resources\FamilyPersonResource\Pages\ListFamilyPeople;
 use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\ContactsRelationManager;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\CouplesHusbandRelationManager;
+use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\CouplesWifeRelationManager;
 use Dzorogh\Family\Filament\Resources\FamilyPersonResource\RelationManagers\PhotosRelationManager;
 use Dzorogh\Family\Models\FamilyCouple;
 use Dzorogh\Family\Models\FamilyPerson;
@@ -41,10 +43,10 @@ class FamilyPersonResource extends Resource
                     ->avatar()
                     ->imageEditor(),
 
-                Section::make('Name')
+                Section::make('Parents')
                     ->schema([
                         Select::make('parent_couple_id')
-                            ->columns(3)
+                            ->searchable()
                             ->relationship(
                                 name: 'parentCouple',
                                 modifyQueryUsing: fn(Builder $query) => $query->with(['husband', 'wife']),
@@ -131,6 +133,8 @@ class FamilyPersonResource extends Resource
         return [
             ContactsRelationManager::class,
             PhotosRelationManager::class,
+            CouplesHusbandRelationManager::class,
+            CouplesWifeRelationManager::class,
         ];
     }
 
