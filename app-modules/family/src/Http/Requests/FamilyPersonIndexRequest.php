@@ -3,9 +3,10 @@
 namespace Dzorogh\Family\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Exists;
 
-class FamilyPersonTreeRequest extends FormRequest
+class FamilyPersonIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +24,9 @@ class FamilyPersonTreeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'root_person_id' => ['required', new Exists('family_people', 'id')]
+            'per_page' => ['required', Rule::in([10, 20, 30, 40, 50])],
+            'page' => 'int',
+            'query' => 'string'
         ];
     }
 }

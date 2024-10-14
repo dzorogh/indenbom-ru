@@ -2,24 +2,60 @@
 
 namespace Dzorogh\Family\Http\Controllers;
 
-use Dzorogh\Family\Http\Requests\FamilyPersonTreeRequest;
+use Dzorogh\Family\Http\Requests\FamilyPersonIndexRequest;
 use Dzorogh\Family\Http\Resources\FamilyPersonResource;
 use Dzorogh\Family\Http\Resources\FamilyPersonTreeResource;
+use Dzorogh\Family\Http\Resources\IdCollection;
 use Dzorogh\Family\Models\FamilyPerson;
 use Dzorogh\Family\Services\FamilyService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class FamilyPersonController
 {
-    public function index()
+    /**
+     * List of people
+     *
+     * Paginated list of people with filtering and sorting
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function index(FamilyPersonIndexRequest $request)
     {
-        $couples = FamilyPerson::query()
-            ->withCount(['photos', 'contacts'])
-            ->orderBy('birth_date')
-            ->get();
+        $people = FamilyPerson::search($request->validated('query'))
+            ->query(function ($query) {
+                $query
+                    ->withCount(['photos', 'contacts'])
+                    ->with([
+                        'parentCouple.wife',
+                        'parentCouple.husband'
+                    ])
+                    ->orderBy('birth_date');
+            })
+            ->paginate($request->validated('per_page'));
 
-        return FamilyPersonResource::collection($couples);
+        return FamilyPersonResource::collection($people);
     }
 
+    /**
+     * Array of all people ids
+     *
+     * Used to prerender pages of each person
+     *
+     * @response array{data: int<1,>[]}
+     */
+    public function allIds()
+    {
+        $peopleIds = FamilyPerson::pluck('id');
+
+        return new IdCollection($peopleIds);
+    }
+
+    /**
+     * Person data
+     *
+     * @param string $personId
+     * @return FamilyPersonResource
+     */
     public function show(string $personId)
     {
         $person = FamilyPerson::findOrFail($personId)
@@ -44,9 +80,9 @@ class FamilyPersonController
         return FamilyPersonResource::make($person);
     }
 
-    public function tree(FamilyPersonTreeRequest $request, FamilyService $service)
+    public function tree(string $personId, FamilyService $service)
     {
-        $result = $service->makeTree($request->validated('root_person_id'));
+        $result = $service->makeTree($personId);
         return FamilyPersonTreeResource::make($result);
     }
 }

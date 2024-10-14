@@ -48,6 +48,7 @@ namespace Dzorogh\Family\Models{
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $slug
  * @property string $title
  * @property string|null $description
  * @method static \Illuminate\Database\Eloquent\Builder|Family newModelQuery()
@@ -56,6 +57,7 @@ namespace Dzorogh\Family\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Family whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Family whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Family whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Family whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Family whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Family whereUpdatedAt($value)
  */
@@ -69,25 +71,25 @@ namespace Dzorogh\Family\Models{
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $first_person_id
- * @property int|null $second_person_id
+ * @property int|null $husband_id
+ * @property int|null $wife_id
  * @property int|null $order
  * @property string|null $marriage_date
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPerson> $children
  * @property-read int|null $children_count
- * @property-read \Dzorogh\Family\Models\FamilyPerson|null $firstPerson
- * @property-read \Dzorogh\Family\Models\FamilyPerson|null $secondPerson
+ * @property-read \Dzorogh\Family\Models\FamilyPerson|null $husband
+ * @property-read \Dzorogh\Family\Models\FamilyPerson|null $wife
  * @method static \Dzorogh\Family\Database\Factories\FamilyCoupleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple query()
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereFirstPersonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereHusbandId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereMarriageDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereSecondPersonId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyCouple whereWifeId($value)
  */
 	class FamilyCouple extends \Eloquent {}
 }
@@ -120,10 +122,10 @@ namespace Dzorogh\Family\Models{
  * @property string|null $article
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyPersonContact> $contacts
  * @property-read int|null $contacts_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyCouple> $couplesFirst
- * @property-read int|null $couples_first_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyCouple> $couplesSecond
- * @property-read int|null $couples_second_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyCouple> $couplesHusband
+ * @property-read int|null $couples_husband_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Dzorogh\Family\Models\FamilyCouple> $couplesWife
+ * @property-read int|null $couples_wife_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Dzorogh\Family\Models\FamilyCouple|null $parentCouple
