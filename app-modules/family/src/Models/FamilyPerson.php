@@ -55,18 +55,4 @@ class FamilyPerson extends Model implements HasMedia
         return $this->belongsToMany(FamilyPhoto::class, 'family_person_photo')
             ->withPivot(['order']);
     }
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array<string, mixed>
-     */
-    public function toSearchableArray(): array
-    {
-        return [
-            'middle_name' => $this->middle_name,
-            'first_name' => $this->first_name,
-
-        ];
-    }
 }

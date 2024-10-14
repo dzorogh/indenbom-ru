@@ -25,8 +25,8 @@ class FamilyPersonIndexRequest extends FormRequest
     {
         return [
             'per_page' => ['required', Rule::in([10, 20, 30, 40, 50])],
-            'page' => 'int',
-            'query' => 'string'
+            'page' => 'int|nullable',
+            'query' => 'string|nullable'
         ];
     }
 }
