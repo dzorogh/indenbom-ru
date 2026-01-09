@@ -24,7 +24,11 @@ class FamilyPhotoResource extends Resource
     {
         return $form
             ->schema([
-                SpatieMediaLibraryFileUpload::make('media'),
+                SpatieMediaLibraryFileUpload::make('media')
+                    ->image()
+                    ->imageEditor()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+                    ->maxSize(10240),
 
                 MarkdownEditor::make('description'),
 

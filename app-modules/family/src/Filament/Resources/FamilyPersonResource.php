@@ -41,7 +41,9 @@ class FamilyPersonResource extends Resource
                 SpatieMediaLibraryFileUpload::make('avatar')
                     ->collection('avatar')
                     ->avatar()
-                    ->imageEditor(),
+                    ->imageEditor()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+                    ->maxSize(10240),
 
                 Section::make('Parents')
                     ->schema([

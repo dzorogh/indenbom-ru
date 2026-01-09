@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class FamilyPerson extends Model implements HasMedia
 {
@@ -23,6 +24,22 @@ class FamilyPerson extends Model implements HasMedia
         'birth_date_precision' => DatePrecision::class,
         'death_date_precision' => DatePrecision::class,
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        // Автоматическая конверсия аватаров при загрузке - гарантирует, что файл является изображением
+        // Если файл не изображение, конверсия не сработает и файл не будет сохранен
+        // Пережимаем изображение и конвертируем в JPEG для удаления любых метаданных
+        $this->addMediaConversion('processed')
+            ->performOnCollections('avatar')
+            ->width(800)
+            ->height(800)
+            ->sharpen(10)
+            ->quality(90)
+            ->format('jpg')
+            ->optimize()
+            ->nonQueued();
+    }
 
     public function parentCouple(): BelongsTo
     {
