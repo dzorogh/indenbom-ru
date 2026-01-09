@@ -9,7 +9,7 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-80}:80'
+#            - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
@@ -21,6 +21,7 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
+            - default
         depends_on:
             - pgsql
             - redis
@@ -45,6 +46,7 @@ services:
         healthcheck:
             test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
             retries: 3
+        restart: unless-stopped
 
     redis:
         image: 'redis:alpine'
@@ -58,6 +60,7 @@ services:
             test: ["CMD", "redis-cli", "ping"]
             retries: 3
             timeout: 5s
+        restart: unless-stopped
 
     meilisearch:
         image: 'getmeili/meilisearch:latest'
@@ -73,6 +76,7 @@ services:
             test: ["CMD", "wget", "--no-verbose", "--spider",  "http://127.0.0.1:7700/health"]
             retries: 3
             timeout: 5s
+        restart: unless-stopped
 
     mailpit:
         image: 'axllent/mailpit:latest'
@@ -96,6 +100,10 @@ services:
 networks:
     sail:
         driver: bridge
+    default:
+        external: true
+        name: npm
+
 volumes:
     sail-pgsql:
         driver: local

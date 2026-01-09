@@ -24,7 +24,7 @@ Route::prefix('api')->group(function () {
                 });
 
             Route::prefix('people')
-                ->controller(FamilyPersonController::class)
+            ->controller(FamilyPersonController::class)
                 ->group(function () {
                     Route::get('/', 'index');
                     Route::get('ids', 'allIds');

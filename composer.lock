@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "551a7d382fa3436975ed2583cc958799",
+    "content-hash": "f9823a87a155b49f0934600c1b5314a1",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -4613,6 +4613,82 @@
                 }
             ],
             "time": "2024-06-28T09:40:51+00:00"
+        },
+        {
+            "name": "mozex/laravel-scout-bulk-actions",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mozex/laravel-scout-bulk-actions.git",
+                "reference": "37cf081f331fa60b5eb525324ed808f63c107bd7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mozex/laravel-scout-bulk-actions/zipball/37cf081f331fa60b5eb525324ed808f63c107bd7",
+                "reference": "37cf081f331fa60b5eb525324ed808f63c107bd7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0|^11.0",
+                "laravel/prompts": "^0.1.15|^0.2.0|^0.3.0",
+                "laravel/scout": "^10.2",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.9.8",
+                "laravel/pint": "^1.16.1",
+                "nunomaduro/collision": "^7.8|^8.1",
+                "orchestra/testbench": "^8.21|^9.0",
+                "pestphp/pest": "^2.34.7",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mozex\\ScoutBulkActions\\ScoutBulkActionsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mozex\\ScoutBulkActions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mozex",
+                    "email": "mozex@alphorld.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Scout extension for bulk importing and flushing of all models.",
+            "homepage": "https://github.com/mozex/laravel-scout-bulk-actions",
+            "keywords": [
+                "laravel",
+                "laravel-scout-bulk-actions",
+                "mozex"
+            ],
+            "support": {
+                "issues": "https://github.com/mozex/laravel-scout-bulk-actions/issues",
+                "source": "https://github.com/mozex/laravel-scout-bulk-actions/tree/1.2.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mozex",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-10-08T07:29:01+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -12209,6 +12285,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

@@ -4,6 +4,7 @@ namespace Dzorogh\Family\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -71,7 +72,12 @@ class FamilyCoupleResource extends Resource
     public static function getRelations(): array
     {
         return [
+            RelationGroup::make('Couple', [
+                'husband' => RelationManagers\HusbandRelationManager::class,
+                'wife' => RelationManagers\HusbandRelationManager::class,
+            ]),
             'children' => ChildrenRelationManager::class,
+
         ];
     }
 
