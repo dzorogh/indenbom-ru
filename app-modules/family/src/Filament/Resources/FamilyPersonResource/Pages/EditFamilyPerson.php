@@ -13,7 +13,12 @@ class EditFamilyPerson extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->visible(fn () => !$this->record->trashed()),
+            Actions\RestoreAction::make()
+                ->visible(fn () => $this->record->trashed()),
+            Actions\ForceDeleteAction::make()
+                ->visible(fn () => $this->record->trashed()),
         ];
     }
 }

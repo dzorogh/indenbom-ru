@@ -109,23 +109,40 @@ class FamilyPersonResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('full_name')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->description(fn (FamilyPerson $record): string => $record->trashed() ? 'Удалено' : '')
+                    ->color(fn (FamilyPerson $record): string => $record->trashed() ? 'danger' : 'primary'),
 
                 Tables\Columns\TextColumn::make('birth_date')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('death_date')
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->label('Статус')
+                    ->formatStateUsing(fn ($state): string => $state ? 'Удалено' : 'Активно')
+                    ->color(fn ($state): string => $state ? 'danger' : 'success')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn (FamilyPerson $record): bool => !$record->trashed()),
+                Tables\Actions\RestoreAction::make()
+                    ->visible(fn (FamilyPerson $record): bool => $record->trashed()),
+                Tables\Actions\ForceDeleteAction::make()
+                    ->visible(fn (FamilyPerson $record): bool => $record->trashed()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
                 ]),
             ]);
     }
