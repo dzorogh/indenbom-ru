@@ -32,7 +32,7 @@ class FamilyPersonResource extends JsonResource
             'death_date' => $this->resource->death_date,
             'death_date_precision' => $this->resource->death_date_precision,
             'article' => $this->resource->article,
-            'avatar_url' => $this->resource->getMedia('avatar')->first()?->original_url,
+            'avatar_url' => $this->getMediaUrl($this->resource->getMedia('avatar')->first()),
 
             'parent_couple' => FamilyCoupleResource::make($this->whenLoaded('parentCouple')),
             'couples' => FamilyCoupleResource::collection(
@@ -50,5 +50,24 @@ class FamilyPersonResource extends JsonResource
                 return $this->pivot->position_on_photo;
             }),
         ];
+    }
+
+    /**
+     * Получить полный URL для медиа файла
+     */
+    private function getMediaUrl($media): ?string
+    {
+        if (!$media) {
+            return null;
+        }
+        
+        $url = $media->getUrl();
+        
+        // Если URL не содержит домен, добавляем его
+        if ($url && !str_starts_with($url, 'http')) {
+            return url($url);
+        }
+        
+        return $media->getFullUrl() ?: $url;
     }
 }

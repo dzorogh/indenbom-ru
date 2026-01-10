@@ -18,9 +18,11 @@ class FamilyPhotoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $media = $this->resource->getMedia()->first();
+        
         return [
             'id' => $this->resource->id,
-            'media_url' => $this->resource->getMedia()->first()?->original_url,
+            'media_url' => $this->getMediaUrl($media),
             'description' => $this->resource->description,
             'place' => $this->resource->place,
             'approximate_date' => $this->resource->approximate_date,
@@ -31,5 +33,24 @@ class FamilyPhotoResource extends JsonResource
                 return $this->pivot->order;
             }),
         ];
+    }
+
+    /**
+     * Получить полный URL для медиа файла
+     */
+    private function getMediaUrl($media): ?string
+    {
+        if (!$media) {
+            return null;
+        }
+        
+        $url = $media->getUrl();
+        
+        // Если URL не содержит домен, добавляем его
+        if ($url && !str_starts_with($url, 'http')) {
+            return url($url);
+        }
+        
+        return $media->getFullUrl() ?: $url;
     }
 }
