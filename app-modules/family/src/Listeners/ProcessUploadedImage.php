@@ -16,11 +16,34 @@ class ProcessUploadedImage
     {
         $media = $event->media;
 
+        // Список опасных расширений, которые никогда не должны быть загружены
+        $dangerousExtensions = [
+            'php', 'php3', 'php4', 'php5', 'phtml', 'pl', 'py', 'jsp', 'asp', 
+            'sh', 'bash', 'cgi', 'exe', 'bat', 'cmd', 'com', 'pif', 'scr', 
+            'vbs', 'jar', 'app', 'deb', 'rpm', 'dmg', 'pkg', 'run', 'bin'
+        ];
+
+        // Проверяем расширение файла
+        $fileName = $media->file_name ?? $media->name ?? '';
+        $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        
+        if (in_array($extension, $dangerousExtensions)) {
+            $media->delete();
+            throw new Exception('Загрузка файлов с опасным расширением запрещена');
+        }
+
         // Проверяем, что это изображение по MIME типу
         if (!str_starts_with($media->mime_type ?? '', 'image/')) {
             // Если не изображение - удаляем файл
             $media->delete();
             throw new Exception('Загруженный файл не является изображением');
+        }
+
+        // Разрешенные расширения для изображений
+        $allowedImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'ico'];
+        if (!in_array($extension, $allowedImageExtensions)) {
+            $media->delete();
+            throw new Exception('Недопустимое расширение файла для изображения');
         }
 
         try {
