@@ -18,15 +18,15 @@ class ProcessUploadedImage
 
         // Список опасных расширений, которые никогда не должны быть загружены
         $dangerousExtensions = [
-            'php', 'php3', 'php4', 'php5', 'phtml', 'pl', 'py', 'jsp', 'asp', 
-            'sh', 'bash', 'cgi', 'exe', 'bat', 'cmd', 'com', 'pif', 'scr', 
+            'php', 'php3', 'php4', 'php5', 'phtml', 'pl', 'py', 'jsp', 'asp',
+            'sh', 'bash', 'cgi', 'exe', 'bat', 'cmd', 'com', 'pif', 'scr',
             'vbs', 'jar', 'app', 'deb', 'rpm', 'dmg', 'pkg', 'run', 'bin'
         ];
 
         // Проверяем расширение файла
         $fileName = $media->file_name ?? $media->name ?? '';
         $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        
+
         if (in_array($extension, $dangerousExtensions)) {
             $media->delete();
             throw new Exception('Загрузка файлов с опасным расширением запрещена');
